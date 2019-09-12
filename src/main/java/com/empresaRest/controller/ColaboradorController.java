@@ -1,4 +1,4 @@
-package com.empresaRest;
+package com.empresaRest.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,10 @@ import com.empresaRest.dto.ColaboradorDTO;
 import com.empresaRest.exception.HttpMessageNotReadableException;
 import com.empresaRest.exception.ResourceNotFoundException;
 import com.empresaRest.model.Colaborador;
+import com.empresaRest.model.Setor;
 import com.empresaRest.repository.ColaboradorRepository;
+import com.empresaRest.repository.SetorRepository;
+import com.empresaRest.util.CalculoUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -31,6 +35,9 @@ public class ColaboradorController {
 
 	@Autowired
 	private ColaboradorRepository repository;
+
+	@Autowired
+	private CalculoUtil util;
 
 	@PostMapping
 	@ApiOperation(value = "Salva um novo colaborador")
@@ -56,10 +63,10 @@ public class ColaboradorController {
 				.collect(Collectors.toList());
 		return ResponseEntity.ok().body(colaboradoresDto);
 	}
-	
+
 	@GetMapping("/{id}")
 	@ApiOperation(value = "Retorna um colaborador por ID")
-	public ResponseEntity<Optional<Colaborador>> buscaColaboradorPorId(@PathVariable ("id") Integer id) {
+	public ResponseEntity<Optional<Colaborador>> buscaColaboradorPorId(@PathVariable Integer id) {
 		verificaSeColaboradorExiste(id);
 		Optional<Colaborador> colaborador = repository.findById(id);
 		return ResponseEntity.ok().body(colaborador);
@@ -71,6 +78,14 @@ public class ColaboradorController {
 		verificaSeColaboradorExiste(colaborador.getId());
 		repository.save(colaborador);
 		return new ResponseEntity<>("Colaborador atualizado com sucesso!", HttpStatus.OK);
+	}
+
+	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Remove um novo colaborador")
+	public ResponseEntity<?> remover(@PathVariable Integer id) {
+		verificaSeColaboradorExiste(id);
+		repository.deleteById(id);
+		return new ResponseEntity<>("Colaborador removido com sucesso!", HttpStatus.OK);
 	}
 
 	private void verificaSeColaboradorExiste(Integer id) {

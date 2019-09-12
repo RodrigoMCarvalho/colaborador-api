@@ -15,6 +15,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "colaboradores")
 public class Colaborador implements Serializable {
@@ -42,7 +44,10 @@ public class Colaborador implements Serializable {
 
 	@JoinColumn(name = "setor_id")
 	@ManyToOne
+	@JsonBackReference
 	private Setor setor;
+	
+	private Integer idade;
 
 	public Integer getId() {
 		return id;
@@ -92,4 +97,13 @@ public class Colaborador implements Serializable {
 		this.setor = setor;
 	}
 
+	public Integer getIdade() {
+		return idade;
+	}
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
+
+	
 }

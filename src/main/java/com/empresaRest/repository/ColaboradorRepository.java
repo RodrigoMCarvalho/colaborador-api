@@ -3,6 +3,7 @@ package com.empresaRest.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.empresaRest.model.Colaborador;
@@ -12,4 +13,10 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Intege
 	
 	public Colaborador findByCpf(String cpf);
 	public Optional<Colaborador> findById(Integer id);
+	
+	@Query("SELECT COUNT(*) FROM Colaborador c")
+	public Integer totalColaboradores();
+
+
+
 }

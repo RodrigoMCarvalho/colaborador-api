@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "setores")
@@ -27,7 +27,7 @@ public class Setor implements Serializable {
 	@NotEmpty(message = "Campo descrição obrigatória")
 	private String descricao;
 
-	@JsonIgnore
+	@JsonManagedReference   
 	@OneToMany(mappedBy = "setor")
 	private List<Colaborador> colaboradores = new ArrayList<>();
 

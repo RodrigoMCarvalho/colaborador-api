@@ -16,6 +16,7 @@ public interface SetorRepository extends JpaRepository<Setor, Integer> {
 	@Query("SELECT c FROM Colaborador c JOIN Setor s ON c.setor = s.id WHERE s.id =:id")
 	List<Colaborador> findColaboradoresById(@Param(value = "id") Integer id);
 	
-	
+	@Query(" ")
+	List<Colaborador> findSetoresGroupById(@Param(value = "id") Integer id);
 	
 }

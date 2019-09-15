@@ -52,8 +52,6 @@ public class ColaboradorController {
 	@ApiOperation(value = "Retorna todos os colaboradores DTO")
 	public ResponseEntity<List<ColaboradorDTO>> buscaTodosDTO() {
 		List<ColaboradorDTO> colaboradoresDto = service.findAllDTO();
-	
-		
 		return ResponseEntity.ok().body(colaboradoresDto);
 	}
 
@@ -66,7 +64,7 @@ public class ColaboradorController {
 
 	@PutMapping("/colaborador")
 	@ApiOperation(value = "Atualiza um colaborador")
-	public ResponseEntity<?> atualizar(@RequestBody Colaborador colaborador) {
+	public ResponseEntity<?> atualizar(@Valid @RequestBody Colaborador colaborador) {
 		service.update(colaborador);
 		return new ResponseEntity<>("Colaborador atualizado com sucesso!", HttpStatus.OK);
 	}

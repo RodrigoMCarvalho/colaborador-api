@@ -54,6 +54,12 @@ public class ColaboradorService {
 	
 	public Colaborador update(Colaborador colaborador) {
 		verificaSeColaboradorExiste(colaborador.getId());
+		if(verificaIdadeMaiorDeSessentaECinco(colaborador)){
+			throw new LimitAgeException("O limite de colaboradores acima de 65 anos foi atingido na empresa.");
+		}
+		if(verificaIdadeMenorDeDezoito(colaborador)) {
+			throw new LimitAgeException("O limite de colaboradores abaixo de 18 anos foi atingido no setor.");
+		}
 		return repository.save(colaborador);
 	}
 	
@@ -65,7 +71,7 @@ public class ColaboradorService {
 	private void verificaSeColaboradorExiste(Integer id) {
 		Optional<Colaborador> colaborador = repository.findById(id);
 		if (!colaborador.isPresent()) {
-			throw new ResourceNotFoundException( "Não foi encontrado um colaborador para o ID: " + id);
+			throw new ResourceNotFoundException("Não foi encontrado um colaborador para o ID: " + id);
 		}
 	}
 	
@@ -88,7 +94,7 @@ public class ColaboradorService {
 	}
 	
 	private boolean verificaIdadeMenorDeDezoito(Colaborador colaborador) {
-		if(colaborador.getIdade() < 18) {
+		if(null != colaborador.getIdade() && colaborador.getIdade() < 18) {
 			List<Colaborador> colaboradoresPorSetor = repository.findColaboradoresBySetor(colaborador.getSetor().getId());
 			long cont = 1;
 			for(Colaborador col : colaboradoresPorSetor) {

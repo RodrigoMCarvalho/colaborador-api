@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -23,7 +24,7 @@ public class Colaborador  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotEmpty(message = "Campo nome obrigatório.")
+	@NotBlank(message = "Campo nome obrigatório.")
 	private String nome;
 
 	@CPF(message = "CPF inválido.")
@@ -32,7 +33,7 @@ public class Colaborador  {
 	private String cpf;
 
 	@Email(message = "Email inválido.")
-	@NotEmpty(message = "Campo email obrigatório.")
+	@NotBlank(message = "Campo email obrigatório.")
 	private String email;
 
 	@NotEmpty(message = "Campo telefone obrigatório")

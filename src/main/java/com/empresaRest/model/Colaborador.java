@@ -1,7 +1,5 @@
 package com.empresaRest.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,9 +17,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "colaboradores")
-public class Colaborador implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Colaborador  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -104,6 +100,7 @@ public class Colaborador implements Serializable {
 	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
+
 
 	
 }

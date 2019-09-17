@@ -3,7 +3,7 @@ package com.empresaRest.dto;
 import com.empresaRest.model.Colaborador;
 
 public class ColaboradorDTO {
-
+	
 	private String nome;
 	private String email;
 

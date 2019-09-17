@@ -1,11 +1,15 @@
 package com.empresaRest.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,12 +25,10 @@ import com.empresaRest.dto.ColaboradorDTO;
 import com.empresaRest.model.Colaborador;
 import com.empresaRest.service.ColaboradorService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
 @RestController
 @RequestMapping("/v1")
 @Api(value = "API REST Empresa")
+@ExposesResourceFor(Colaborador.class)
 public class ColaboradorController {
 	
 	@Autowired
@@ -39,17 +41,19 @@ public class ColaboradorController {
 		return new ResponseEntity<>("Colaborador salvo com sucesso!", HttpStatus.OK);
 	}
 
-	@GetMapping("colaborador/all")
+	@GetMapping("/colaboradores/all")
 	@ApiOperation(value = "Retorna todos os colaboradores")
 	public ResponseEntity<List<Colaborador>> buscaTodos() {
 		List<Colaborador> colaboradores = service.findAll();
 		return ResponseEntity.ok().body(colaboradores);
 	}
 
-	@GetMapping("colaborador/todos")
+	@GetMapping("colaboradores/todos")
 	@ApiOperation(value = "Retorna todos os colaboradores DTO")
 	public ResponseEntity<List<ColaboradorDTO>> buscaTodosDTO() {
 		List<ColaboradorDTO> colaboradoresDto = service.findAllDTO();
+	
+		
 		return ResponseEntity.ok().body(colaboradoresDto);
 	}
 

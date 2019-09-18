@@ -48,7 +48,11 @@ public class ColaboradorController {
 		return ResponseEntity.ok().body(colaboradores);
 	}
 
+<<<<<<< HEAD
 	@GetMapping("colaboradores/todos")
+=======
+	@GetMapping("/colaboradores/todos")
+>>>>>>> d2efca1533edce85d1ad3ccf32fef3452dc9a01c
 	@ApiOperation(value = "Retorna todos os colaboradores DTO")
 	public ResponseEntity<List<ColaboradorDTO>> buscaTodosDTO() {
 		List<ColaboradorDTO> colaboradoresDto = service.findAllDTO();
@@ -57,7 +61,7 @@ public class ColaboradorController {
 		return ResponseEntity.ok().body(colaboradoresDto);
 	}
 
-	@GetMapping("colaborador/{id}")
+	@GetMapping("/colaborador/{id}")
 	@ApiOperation(value = "Retorna um colaborador por ID")
 	public ResponseEntity<Optional<Colaborador>> buscaColaboradorPorId(@PathVariable Integer id) {
 		Optional<Colaborador> colaborador = service.findById(id);
@@ -66,7 +70,7 @@ public class ColaboradorController {
 
 	@PutMapping("/colaborador")
 	@ApiOperation(value = "Atualiza um colaborador")
-	public ResponseEntity<?> atualizar(@RequestBody Colaborador colaborador) {
+	public ResponseEntity<?> atualizar(@Valid @RequestBody Colaborador colaborador) {
 		service.update(colaborador);
 		return new ResponseEntity<>("Colaborador atualizado com sucesso!", HttpStatus.OK);
 	}

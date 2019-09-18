@@ -54,6 +54,12 @@ public class ColaboradorService {
 	
 	public Colaborador update(Colaborador colaborador) {
 		verificaSeColaboradorExiste(colaborador.getId());
+		if(verificaIdadeMaiorDeSessentaECinco(colaborador)){
+			throw new LimitAgeException("O limite de colaboradores acima de 65 anos foi atingido na empresa.");
+		}
+		if(verificaIdadeMenorDeDezoito(colaborador)) {
+			throw new LimitAgeException("O limite de colaboradores abaixo de 18 anos foi atingido no setor.");
+		}
 		return repository.save(colaborador);
 	}
 	
@@ -65,7 +71,11 @@ public class ColaboradorService {
 	private void verificaSeColaboradorExiste(Integer id) {
 		Optional<Colaborador> colaborador = repository.findById(id);
 		if (!colaborador.isPresent()) {
+<<<<<<< HEAD
 			colaborador.orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado um colaborador para o ID: " + id));
+=======
+			throw new ResourceNotFoundException("Não foi encontrado um colaborador para o ID: " + id);
+>>>>>>> d2efca1533edce85d1ad3ccf32fef3452dc9a01c
 		}
 	}
 	
@@ -78,7 +88,8 @@ public class ColaboradorService {
 					cont++;
 				}
 			}
-			double maximoPermitido = (repository.totalColaboradores() * 20) / 100;
+			//double maximoPermitido = (repository.totalColaboradores() * 20) / 100;
+			Integer maximoPermitido = (colaboradores.size() * 20) / 100;
 			if (cont > maximoPermitido) {
 				return true;
 			}
@@ -87,7 +98,11 @@ public class ColaboradorService {
 	}
 	
 	private boolean verificaIdadeMenorDeDezoito(Colaborador colaborador) {
+<<<<<<< HEAD
 		if(colaborador.getIdade() < 18) {
+=======
+		if(null != colaborador.getIdade() && colaborador.getIdade() < 18) {
+>>>>>>> d2efca1533edce85d1ad3ccf32fef3452dc9a01c
 			List<Colaborador> colaboradoresPorSetor = repository.findColaboradoresBySetor(colaborador.getSetor().getId());
 			long cont = 1;
 			for(Colaborador col : colaboradoresPorSetor) {
@@ -95,7 +110,12 @@ public class ColaboradorService {
 					cont++;
 				}
 			}
+<<<<<<< HEAD
 			Integer maximoPermitido = (repository.quantidadeColaboradoresBySetor(colaborador.getSetor().getId()) * 20 ) / 100;
+=======
+			//Integer maximoPermitido = (repository.quantidadeColaboradoresBySetor(colaborador.getSetor().getId()) * 20 ) / 100;
+			Integer maximoPermitido = (colaboradoresPorSetor.size() * 20) / 100;
+>>>>>>> d2efca1533edce85d1ad3ccf32fef3452dc9a01c
 			if (cont > maximoPermitido) {
 				return true;
 			}

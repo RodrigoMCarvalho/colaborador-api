@@ -32,4 +32,15 @@ public class ResourceNotFoundException extends RuntimeException {
 	
 	
 	
+	@Override
+	public void printStackTrace() {
+	}
+
+	@Override
+	public void printStackTrace(PrintStream arg0) {
+	}
+
+	@Override
+	public void printStackTrace(PrintWriter arg0) {
+	}
 }
